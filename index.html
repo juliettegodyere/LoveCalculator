@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html>
+<head>
+<script src="https://code.jquery.com/jquery-3.1.1.js"></script>
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+<meta charset="utf-8">
+<title>Love calculator</title>
+
+<script type="text/javascript">
+	var $input1;
+	var $input2;
+
+	function kk(){
+	$input1 = $("#fname").val();
+	$input2 = $("#lname").val();
+		$.ajax({
+			url: 'https://love-calculator.p.mashape.com/getPercentage?fname='+$input1+'&sname='+$input2,
+			type: 'GET', // The HTTP Method, can be GET POST PUT DELETE etc
+			data: {}, // Additional parameters here
+			dataType: 'json',
+			success:function(result){
+			// alert(JSON.stringify(result));
+				$("#output").html("<p>Your Name:" +result.fname+"</p><br><p>Your Crush Name:" +result.sname +"</p><br><p> Percentage:"+ result.percentage +"</p><br><p> Result: " +result.result+"</p>");
+
+
+			},
+			error: function(err) { alert(err); },
+			beforeSend: function(xhr) {
+				xhr.setRequestHeader("X-Mashape-Authorization", "1YJRweBdgemshn221DIyRLgicvNnp1Zppm1jsndUmMOnEOGrXt"); // Enter here your Mashape key
+			}
+		});
+	} 
+</script>
+</head>
+<body >
+	<div class="container">
+		<h2>Love Calculator</h2>
+		<form>
+			<div class="form-group">
+				<label for="email">Your Name:</label>
+				<input type="text" name="enter" class="enter" value="" id="fname"/>
+			</div>
+			<div class="form-group">
+				<label for="pwd">Your Crush:</label>
+				<input type="text" name="lname" lname="lname" id="lname"><br>
+			</div>
+			<input type="button" value="click" OnClick="kk()"/><br><br>
+			<div id="output"></div>
+		</form>
+	</div>
+</body>
+</html>
